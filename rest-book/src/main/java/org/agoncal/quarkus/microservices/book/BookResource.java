@@ -1,16 +1,39 @@
 package org.agoncal.quarkus.microservices.book;
 
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
+import io.netty.handler.codec.http.HttpStatusClass;
+import jakarta.inject.Inject;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
+import org.jboss.logging.Logger;
+
+import java.time.Instant;
 
 @Path("/api/books")
 public class BookResource {
 
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String hello() {
-        return "Hello RESTEasy";
+    @Inject
+    Logger logger;
+
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    public Response createABook(@FormParam("title") String title,
+                                @FormParam("author") String author,
+                                @FormParam("year") int yearOfPublication,
+                                @FormParam("genre") String genre) {
+
+        Book book = Book.builder()
+                .isbn13("get from microservice")
+                .title(title)
+                .author(author)
+                .yearOfPublication(yearOfPublication)
+                .genre(genre)
+                .creationDate(Instant.now())
+                .build();
+
+        logger.info("Book created: " + book);
+
+        return Response.status(Response.Status.CREATED).entity(book).build();
     }
 }

@@ -25,7 +25,7 @@ public class BookResource {
                                 @FormParam("genre") String genre) {
 
         Book book = Book.builder()
-                .isbn13("get from microservice")
+                .isbn13("13-get from microservice")
                 .title(title)
                 .author(author)
                 .yearOfPublication(yearOfPublication)

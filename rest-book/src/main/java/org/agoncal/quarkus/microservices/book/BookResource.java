@@ -5,6 +5,7 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
+import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.jboss.logging.Logger;
 
 import java.time.Instant;
@@ -12,6 +13,9 @@ import java.time.Instant;
 @Path("/api/books")
 @Tag(name = "Book REST endpoint")
 public class BookResource {
+
+    @RestClient
+    NumberProxy numberProxy;
 
     @Inject
     Logger logger;
@@ -25,7 +29,7 @@ public class BookResource {
                                 @FormParam("genre") String genre) {
 
         Book book = Book.builder()
-                .isbn13("13-get from microservice")
+                .isbn13(numberProxy.generateIsbnNumbers().getIsbn13())
                 .title(title)
                 .author(author)
                 .yearOfPublication(yearOfPublication)

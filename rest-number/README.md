@@ -59,3 +59,22 @@ If you want to learn more about building native executables, please consult http
 Easily start your RESTful Web Services
 
 [Related guide section...](https://quarkus.io/guides/getting-started#the-jax-rs-resources)
+
+
+----
+
+## Useful commands
+
+### Generate linux binary using graalvm
+
+- If using  **linux OS**
+
+```
+mvn package -Dquarkus.package.type=native -Dquarkus.native.container=build -Dmaven.test.skip=true
+```
+
+- If using **Windows OS** or **macOS**
+
+```
+mvn package -Dquarkus.package.type=native -Dquarkus.native.container-build=true -Dmaven.test.skip=true
+```

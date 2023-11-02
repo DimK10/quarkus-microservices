@@ -78,3 +78,17 @@ mvn package -Dquarkus.package.type=native -Dquarkus.native.container=build -Dmav
 ```
 mvn package -Dquarkus.package.type=native -Dquarkus.native.container-build=true -Dmaven.test.skip=true
 ```
+
+### To build native binaries for docker:
+
+- First add extension:
+
+```
+mvn quarkus:add-extension -Dextensions="docker"
+```
+
+- Then:
+
+```
+mvn package -Dquarkus.package.type=native -Dquarkus.native.container-build=true -Dmaven.test.skip=true -Dquarkus.container-image.build=true -Dmaven.skip=true
+```
